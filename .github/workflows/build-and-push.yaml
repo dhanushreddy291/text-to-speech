@@ -1,0 +1,32 @@
+name: build-and-push
+
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3 # This step checkouts the code of the repository
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2 # This step logs in to the Docker Hub using the secrets
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2 # This step sets up Buildx, a tool that allows building multi-arch images
+      - name: Build the Docker image
+        uses: docker/build-push-action@v3 # This step builds the Docker image
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          # Push to github package registry
+          tags: ghcr.io/${{ github.repository_owner }}/text-to-speech:latest
+          platforms: linux/amd64,linux/arm64
+          # Cache the image layers
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
