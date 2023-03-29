@@ -1,0 +1,9 @@
+wheel
+fairseq
+soundfile
+huggingface-hub
+g2p-en
+fastapi[all]
+pydantic
+requests
+tensorboardX
