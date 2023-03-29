@@ -21,7 +21,7 @@ jobs:
           push: true
           # Push to github package registry
           tags: ghcr.io/${{ github.repository_owner }}/text-to-speech:latest
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           # Cache the image layers
           cache-from: type=gha
           cache-to: type=gha,mode=max
