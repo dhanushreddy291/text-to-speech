@@ -1,4 +1,4 @@
-FROM python:3.10.10-slim-bullseye
+FROM python:3.10.9-slim-bullseye
 WORKDIR /app
 
 RUN apt-get update && apt-get install -y apt-utils
